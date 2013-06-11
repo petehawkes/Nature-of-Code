@@ -20,8 +20,8 @@ class Box  :  public Thing
   float x = 10.0;
   float y = 10.0;
   float width = 10.0;
-  float xspeed = .75;
-  float yspeed = .5;
+  float xspeed = 1.5;
+  float yspeed = .75;
   
   // bounds
   float feldBoundRight;
@@ -42,12 +42,16 @@ class Box  :  public Thing
     { // update position and detect bounds
       x += xspeed;
       y += yspeed;
-      if ( x > feldBoundRight || x < feldBoundLeft ) xspeed = xspeed * -1;
-      if ( y > feldBoundTop || y < feldBoundBottom ) yspeed = yspeed * -1;
+      INFORM( "feldLoc:" + ToStr( Feld () -> Loc () ));
+
+      if ( x > feldBoundRight || x < feldBoundLeft )
+        xspeed = xspeed * -1;
+      if ( y > feldBoundTop || y < feldBoundBottom )
+        yspeed = yspeed * -1;
     }
   
   void DrawSelf ()
-    { // draw a box with a half-width offset
+    { // draw a box with a half-width offset, using x and y
       SetGLColor (Color (1, 1, 1));
       DrawQuad (Vect (x-width/2, y-width/2, 0), Vect (width, 0, 0), Vect (0, width, 0));
     }

@@ -31,3 +31,27 @@ Drawing a circle.
 
 - Not sure how to change feld background color. 
 - Found it: SetFeldsColor (Color ("#A8BBBA"));
+
+
+NOC_1_2_bouncingball_vectors
+
+- what's the difference between Loc () and PhysLoc () ?
+- JC pointed me to IncTranslation. I think I'm making some assumptions about respiration that are causing problems with my logic.
+
+OLD METHOD
+
+	travail
+		x += xspeed
+		if (x > xmax) speed *= -1;
+	drawself		
+		draw using x
+
+NEW METHOD (this gets stuck on the edge of the bounds)
+
+	travail
+		IncTranslation ( velocity );
+		if (Loc().x > xmax) velocity.x *= -1;
+	drawself		
+		draw at (0,0,0)
+
+FIX: In the non-vector example, I placed my bounds relative to the Felds Loc (), which was correct, but later removed the relative positioning because it worked without it. This was because I was using numbers relative to the object anyway, so the big outter world made no difference. Using Loc () and vectors for positioning, and not accounting for the Felds Loc (), broke things in the vector example.
