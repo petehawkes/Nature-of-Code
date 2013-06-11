@@ -28,3 +28,6 @@ Drawing a circle.
 - Unsure why I need to add PhysLoc().x to my bounds, since it's 0 by default. 
 	feldBoundRight = PhysLoc().x + (Feld () -> Width () / 2);  // this works
 	feldBoundRight = Feld () -> Width () / 2;  // this doesn't
+
+- Not sure how to change feld background color. 
+- Found it: SetFeldsColor (Color ("#A8BBBA"));

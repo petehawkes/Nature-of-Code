@@ -29,36 +29,34 @@ class Box  :  public Thing
   float feldBoundTop;
   float feldBoundBottom;
 
-  
   Box ()  :  Thing ()
     { SlapOnFeld ();
-      // setting my bounds to keep things readable
-      // unsure why I need to add PhysLoc().x to each, since it's 0 by default. 
-      feldBoundRight = PhysLoc().x + (Feld () -> Width () / 2);
-      feldBoundLeft = PhysLoc().x - (Feld () -> Width () / 2);
-      feldBoundTop = PhysLoc().y + (Feld () -> Height () / 2);
-      feldBoundBottom = PhysLoc().y - (Feld () -> Height () / 2);
+      // setting bounds to keep things readable
+      feldBoundRight = Feld () -> Width () / 2;
+      feldBoundLeft = -(Feld () -> Width () / 2);
+      feldBoundTop = Feld () -> Height () / 2;
+      feldBoundBottom = -(Feld () -> Height () / 2);
     }
   
   void Travail ()
-  { x += xspeed;
-    y += yspeed;
-    if ( x > feldBoundRight || x < feldBoundLeft ) {
-      xspeed = xspeed * -1;
+    { // update position and detect bounds
+      x += xspeed;
+      y += yspeed;
+      if ( x > feldBoundRight || x < feldBoundLeft ) xspeed = xspeed * -1;
+      if ( y > feldBoundTop || y < feldBoundBottom ) yspeed = yspeed * -1;
     }
-    if ( y > feldBoundTop || y < feldBoundBottom ) {
-      yspeed = yspeed * -1;
-    }
-  }
   
   void DrawSelf ()
-  { // draw a box with a half-width offset
-    SetGLColor (Color (0, 1, 0));
-    DrawQuad (Vect (x-width/2, y-width/2, 0), Vect (width, 0, 0), Vect (0, width, 0));
-  }
+    { // draw a box with a half-width offset
+      SetGLColor (Color (1, 1, 1));
+      DrawQuad (Vect (x-width/2, y-width/2, 0), Vect (width, 0, 0), Vect (0, width, 0));
+    }
 };
 
 
 void Setup ()
-{ new Box ();
+{ // color the background
+  SetFeldsColor (Color ("#A8BBBA"));
+  // add the box
+  new Box ();
 }
