@@ -30,19 +30,20 @@ class Box  :  public Thing
   { SlapOnFeld ();
     // setting bounds to keep things readable
     // * * Bounds here are set relative to the Feld's Loc () * *
-    feldBoundRight = Feld () -> Loc ().x + Feld () -> Width () / 2;
+    feldBoundRight = Feld () -> Loc ().x + (Feld () -> Width () / 2);
     feldBoundLeft = Feld () -> Loc ().x - (Feld () -> Width () / 2);
-    feldBoundTop = Feld () -> Loc ().y + Feld () -> Height () / 2;
+    feldBoundTop = Feld () -> Loc ().y + (Feld () -> Height () / 2);
     feldBoundBottom = Feld () -> Loc ().y - (Feld () -> Height () / 2);
   }
   
   void Travail ()
   { // update position and detect bounds
     IncTranslation( velocity );
+    INFORM ( ToStr (Loc ()) );
     // * * Use Translation () instead of Loc () to check the bounds * *
     if ( Translation ().x > feldBoundRight || Translation ().x < feldBoundLeft )
       velocity.x = velocity.x * -1;
-    if ( Translation ().y > feldBoundTop || Translation ().y < feldBoundBottom )
+    if ( Translation ().y > feldBoundTop || Translation ().y < feldBoundBottom ) 
       velocity.y = velocity.y * -1;
   }
   
