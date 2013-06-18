@@ -15,26 +15,32 @@
 class PointingTracker  :  public Thing
 { public:   
     
-    Vect pointerLoc;
-    Vect vertex;
+  Vect pointerLoc;
+  Vect vertex;
     
-    PointingTracker ()  :  Thing ()
+  PointingTracker ()  :  Thing ()
     { SlapOnFeld ();
     }
     
-    void PointingMove (PointingEvent *e)
-    { pointerLoc = Intersection (e, Loc ());
-      vertex = (pointerLoc - Loc ()) * .5;
+  void PointingMove (PointingEvent *e)
+    { // pointer location
+      pointerLoc = Intersection (e, Loc ());
+    
+      // subtract the feld location
+      vertex = pointerLoc - Loc ();
+      
+      // multiply the vector
+      vertex = vertex * .5;
     }
     
-    void DrawSelf ()
-    { SetGLColor (Color (1, 1, 1));
-        glLineWidth(2.0);
-        glBegin (GL_LINES);
-        glVertex (Vect (0, 0, 0));
-        glVertex (vertex);
-        glEnd ();
-        
+  void DrawSelf ()
+    { // draw line
+      SetGLColor (Color (1, 1, 1));
+      glLineWidth(2.0);
+      glBegin (GL_LINES);
+      glVertex (Vect (0, 0, 0));
+      glVertex (vertex);
+      glEnd ();        
     }
     
 };

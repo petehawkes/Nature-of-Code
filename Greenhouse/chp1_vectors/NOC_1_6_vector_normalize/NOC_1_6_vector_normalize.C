@@ -7,7 +7,7 @@
  
  A port to Greenhouse of examples from The Nature of Code by Daniel Shiffman
  
- Example 1-5: Vector magnitude
+ Example 1-6: Vector normalize
  
  **/
 
@@ -17,12 +17,9 @@ class PointingTracker  :  public Thing
   
   Vect pointerLoc;
   Vect vertex;
-  float m; // magnitude
-  float h; // bar height
   
   PointingTracker ()  :  Thing ()
   { SlapOnFeld ();
-    h = 3.0;
   }
   
   void PointingMove (PointingEvent *e)
@@ -32,8 +29,11 @@ class PointingTracker  :  public Thing
     // subtract the feld location
     vertex = pointerLoc - Loc ();
     
-    // get the magnitude
-    m = vertex.Mag();
+    // normalize the vector
+    vertex = vertex.Norm();
+    
+    // multply its length by 50
+    vertex = vertex * 50.0;
   }
   
   void DrawSelf ()
@@ -44,9 +44,6 @@ class PointingTracker  :  public Thing
     glVertex (Vect (0, 0, 0));
     glVertex (vertex);
     glEnd ();
-    
-    // draw bar (DrawQuad draws from the bottom left corner)
-    DrawQuad (Vect (-Feld () -> Width () / 2, Feld () -> Height () / 2 - h, 0), Vect (m, 0, 0), Vect (0, h, 0));
   }
   
 };
