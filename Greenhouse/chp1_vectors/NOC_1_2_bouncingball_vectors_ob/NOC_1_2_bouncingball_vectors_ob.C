@@ -4,21 +4,13 @@
 #include "Greenhouse.h"
 
 /**
-  When using new resource files please be sure to do the following in order to
-  ensure that your application can find those resources:
-
-    - Place all resource files in:
-
-        /opt/oblong/greenhouse/share
-
-    - OR if you'd like to keep your resource files separated from the installed
-         resources:
-
-      Create a folder for your personal resource files and add the following
-      line to your ~/.bash_profile (Mac) or ~/.bashrc (Linux) file:
-
-        export OB_SHARE_PATH=[/path/to/new/share]:$OB_SHARE_PATH
-**/
+ 
+ A port to Greenhouse of examples from The Nature of Code by Daniel Shiffman
+ 
+ Example 1-2: Bouncing Ball, with Vectors! Loc () and PhysLoc ()
+ Using a Box for now to keep drawing simple.
+ 
+ **/
 
 
 class Box  :  public Thing
@@ -28,11 +20,6 @@ class Box  :  public Thing
   float width = 10.0;
   Vect velocity = Vect(1.5, .75, 0);
   
-  // bounds
-  float feldBoundRight;
-  float feldBoundLeft;
-  float feldBoundTop;
-  float feldBoundBottom;
   
   Box ()  :  Thing ()
   { SlapOnFeld ();    
@@ -43,26 +30,28 @@ class Box  :  public Thing
     IncTranslation( velocity );
     //INFORM ( ToStr (Loc ()) );
     
-    Vect v = Translation();
-    
-    float v_o = v.Dot(Feld () -> Over ());
-    float v_u = v.Dot(Feld () -> Up ());
-    
     SpaceFeld *f = Feld ();
     
-    float xEdge = (f -> Loc () + f -> Over () * f -> Width () / 2.0).Dot(f -> Over ());
-    float yEdge = (f -> Loc () + f -> Up () * f -> Height () / 2.0).Dot(f -> Up ());
+    Vect v = Translation();
+    Vect o = f -> Over ();
+    Vect u = f -> Up ();
+    
+    float v_o = v.Dot(o);
+    //float v_u = v.Dot(Feld () -> Up ());
+    
+    float xEdge = (f -> Loc () + o * f -> Width () / 2.0).Dot(o);
+    float yEdge = (f -> Loc () + u * f -> Height () / 2.0).Dot(u);
 
-    if (v_o > xEdge || v_o < -xEdge) {
+    if (v_o > xEdge ) {
       INFORM ( "HIT xEdge" );
       velocity.x = velocity.x * -1;
     }
     
-    if (v_u > yEdge || v_u < -yEdge) {
+    /*if (v_u > yEdge || v_u < -yEdge) {
       INFORM ( "HIT yEdge" );
       velocity.y = velocity.y * -1;
     }
-    
+    */
 
   }
   
