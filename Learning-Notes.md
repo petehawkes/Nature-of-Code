@@ -3,7 +3,9 @@ Thoughts on Greenhouse from a Processing perspective
 
 Using Dan Shiffman's Nature of Code Examples. 
 
+
 NOC_1_1_bouncingball_novectors
+===========================
 
 Initial setup. 
 - Looking for something like setup() and loop(). 
@@ -34,9 +36,10 @@ Drawing a circle.
 
 
 NOC_1_2_bouncingball_vectors
+===========================
 
-- what's the difference between Loc () and PhysLoc (). They are the same
-- JC pointed me to IncTranslation. I think I'm making some assumptions about respiration that are causing problems with my logic? (nope, I was setting bounds that didn't account for the Feld's Loc () in a broader context.
+- what's the difference between Loc () and PhysLoc () ? (av: They are the same)
+- JC pointed me to IncTranslation. I think I'm making some assumptions about respiration that are causing problems with my logic? (av: nope, I was setting bounds that didn't account for the Feld's Loc () in a broader context.)
 
 OLD METHOD
 
@@ -54,6 +57,19 @@ NEW METHOD (this gets stuck on the edge of the bounds)
 	drawself		
 		draw at (0,0,0)
 
-FIX: In the non-vector example, I placed my bounds relative to the Felds Loc (), which was correct, but later removed the relative positioning because it worked without it. This was because I was using numbers relative to the object anyway, so the big outter world made no difference. Using Loc () and vectors for positioning, and not accounting for the Felds Loc (), broke things in the vector example.
+FIX: In the non-vector example, I initially set my bounds relative to the Felds Loc (), which was correct, but later removed the relative positioning because I noticed it worked using hard numbers and the code was more compact. This was because I was using numbers relative to the object anyway, so the big outter world made no difference. Using Loc () and vectors for positioning, and not accounting for the Felds Loc (), broke my boundary checking in the vector example.
 
-Also– needed to use Translation ().x in the boundary comparison instead of Loc ().x. I don't know why this is.
+Also– I needed to use Translation ().x in the boundary comparison instead of Loc ().x. 
+I don't know why this is.
+
+
+NOC_1_3_vector_subtraction
+===========================
+
+This was pretty easy. All it took was checking out the Pointing Events sample, finding PointingMove, and then looking up IntersectionDiff from the example which led me to Intersection. 
+
+Didn't get it immediately. Had to use INFORM to realize I'd forgotten to substract Loc () from the Intersection value when drawing my line. 
+
+
+
+
