@@ -4,27 +4,19 @@
 #include "Greenhouse.h"
 
 /**
-  When using new resource files please be sure to do the following in order to
-  ensure that your application can find those resources:
-
-    - Place all resource files in:
-
-        /opt/oblong/greenhouse/share
-
-    - OR if you'd like to keep your resource files separated from the installed
-         resources:
-
-      Create a folder for your personal resource files and add the following
-      line to your ~/.bash_profile (Mac) or ~/.bashrc (Linux) file:
-
-        export OB_SHARE_PATH=[/path/to/new/share]:$OB_SHARE_PATH
-**/
+ 
+ A port to Greenhouse of examples from The Nature of Code by Daniel Shiffman
+ 
+ Example 1-3: Vector subtraction
+ 
+ **/
 
 
 class PointingTracker  :  public Thing
 { public:
   
   Vect pointerLoc;
+  Vect vertex;
   
   PointingTracker ()  :  Thing ()
     { SlapOnFeld ();
@@ -32,6 +24,7 @@ class PointingTracker  :  public Thing
   
   void PointingMove (PointingEvent *e)
     { pointerLoc = Intersection (e, Loc ());
+      vertex = pointerLoc - Loc ();
     }
   
   void DrawSelf ()
@@ -39,7 +32,7 @@ class PointingTracker  :  public Thing
       glLineWidth(2.0);
       glBegin (GL_LINES);
       glVertex (Vect (0, 0, 0));
-      glVertex (pointerLoc - Loc ());
+      glVertex (vertex);
       glEnd ();
 
     }
