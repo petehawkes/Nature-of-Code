@@ -45,10 +45,10 @@ export OB_SHARE_PATH=`pwd`/share:$$OB_SHARE_PATH
 endef
 export EXP_STR
 
-all: NOC_1_2_bouncingball_vectors_ob
+all: NOC_1_2_bouncingball_vectors_gspeak
 clean:
-	-rm NOC_1_2_bouncingball_vectors_ob
+	-rm NOC_1_2_bouncingball_vectors_gspeak
 
-NOC_1_2_bouncingball_vectors_ob: NOC_1_2_bouncingball_vectors_ob.C
+NOC_1_2_bouncingball_vectors_gspeak: NOC_1_2_bouncingball_vectors_gspeak.C
 	${CXX} $^ ${LDFLAGS} ${MAGICKFLAGS} -lGreenhouse -lMagick++6-Q16 -lMagickCore6-Q16 -lboost_thread -lboost_system -lboost_filesystem ${CXXFLAGS} -o $@
 	@echo	"$(OK_COLOR)$$EXP_STR$(NO_COLOR)"

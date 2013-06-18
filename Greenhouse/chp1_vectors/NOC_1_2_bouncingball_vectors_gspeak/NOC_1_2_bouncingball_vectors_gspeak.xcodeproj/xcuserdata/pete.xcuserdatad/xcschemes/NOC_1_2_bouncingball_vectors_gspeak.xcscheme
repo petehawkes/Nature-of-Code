@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5649DC3F16F921580048F7B1"
-               BuildableName = "NOC_1_2_bouncingball_vectors_ob"
-               BlueprintName = "NOC_1_2_bouncingball_vectors_ob"
-               ReferencedContainer = "container:NOC_1_2_bouncingball_vectors_ob.xcodeproj">
+               BuildableName = "NOC_1_2_bouncingball_vectors_gspeak"
+               BlueprintName = "NOC_1_2_bouncingball_vectors_gspeak"
+               ReferencedContainer = "container:NOC_1_2_bouncingball_vectors_gspeak.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5649DC3F16F921580048F7B1"
-            BuildableName = "NOC_1_2_bouncingball_vectors_ob"
-            BlueprintName = "NOC_1_2_bouncingball_vectors_ob"
-            ReferencedContainer = "container:NOC_1_2_bouncingball_vectors_ob.xcodeproj">
+            BuildableName = "NOC_1_2_bouncingball_vectors_gspeak"
+            BlueprintName = "NOC_1_2_bouncingball_vectors_gspeak"
+            ReferencedContainer = "container:NOC_1_2_bouncingball_vectors_gspeak.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -52,9 +52,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5649DC3F16F921580048F7B1"
-            BuildableName = "NOC_1_2_bouncingball_vectors_ob"
-            BlueprintName = "NOC_1_2_bouncingball_vectors_ob"
-            ReferencedContainer = "container:NOC_1_2_bouncingball_vectors_ob.xcodeproj">
+            BuildableName = "NOC_1_2_bouncingball_vectors_gspeak"
+            BlueprintName = "NOC_1_2_bouncingball_vectors_gspeak"
+            ReferencedContainer = "container:NOC_1_2_bouncingball_vectors_gspeak.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -70,9 +70,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5649DC3F16F921580048F7B1"
-            BuildableName = "NOC_1_2_bouncingball_vectors_ob"
-            BlueprintName = "NOC_1_2_bouncingball_vectors_ob"
-            ReferencedContainer = "container:NOC_1_2_bouncingball_vectors_ob.xcodeproj">
+            BuildableName = "NOC_1_2_bouncingball_vectors_gspeak"
+            BlueprintName = "NOC_1_2_bouncingball_vectors_gspeak"
+            ReferencedContainer = "container:NOC_1_2_bouncingball_vectors_gspeak.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
