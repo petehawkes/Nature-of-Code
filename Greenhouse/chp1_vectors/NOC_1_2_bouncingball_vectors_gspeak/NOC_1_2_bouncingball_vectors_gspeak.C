@@ -20,39 +20,30 @@ class Box  :  public Thing
   float width = 10.0;
   Vect velocity = Vect(1.5, .75, 0);
   
+  SpaceFeld *f = Feld ();
+  Vect over = f -> Over ();
+  Vect up = f -> Up ();
+  Vect loc = f -> Loc ();
+  float wid = f -> Width ();
+  float hei = f -> Height ();
+
   
   Box ()  :  Thing ()
   { SlapOnFeld ();
   }
   
   void Travail ()
-  { // update position and detect bounds
+  { // update position
     IncTranslation( velocity );
-    //INFORM ( ToStr (Loc ()) );
-    
-    SpaceFeld *f = Feld ();
-    
+
+    // store feld dimenions and orientation
     Vect v = Translation();
-    Vect o = f -> Over ();
-    Vect u = f -> Up ();
-    
-    float v_o = v.Dot(o);
-    //float v_u = v.Dot(Feld () -> Up ());
-    
-    float xEdge = (f -> Loc () + o * f -> Width () / 2.0).Dot(o);
-    float yEdge = (f -> Loc () + u * f -> Height () / 2.0).Dot(u);
-    
-    if (v_o > xEdge ) {
-      INFORM ( "HIT xEdge" );
+        
+    // detect bounds
+    if (v.Dot(over) > (loc + over * wid / 2.0).Dot(over) || v.Dot(over) < (loc - over * wid / 2.0).Dot(over))
       velocity.x = velocity.x * -1;
-    }
-    
-    /*if (v_u > yEdge || v_u < -yEdge) {
-     INFORM ( "HIT yEdge" );
-     velocity.y = velocity.y * -1;
-     }
-     */
-    
+    if (v.Dot(up) > (loc + up * hei / 2.0).Dot(up) || v.Dot(up) < (loc - up * hei / 2.0).Dot(up))
+      velocity.y = velocity.y * -1;
   }
   
   void DrawSelf ()
