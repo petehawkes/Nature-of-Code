@@ -39,7 +39,7 @@ class Box  :  public Thing
   void Travail ()
   { // update position
     IncTranslation( velocity );
-    INFORM ( ToStr (Loc ()) );
+    //INFORM ( ToStr (Loc ()) );
     // detect bounds * * Use Translation () instead of Loc () * *
     if ( Translation ().x > feldBoundRight || Translation ().x < feldBoundLeft )
       velocity.x = velocity.x * -1;
