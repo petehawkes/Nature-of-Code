@@ -70,6 +70,10 @@ This was pretty easy. All it took was checking out the Pointing Events sample, f
 
 Didn't get it immediately. Had to use INFORM to realize I'd forgotten to substract Loc () from the Intersection value when drawing my line. 
 
+Note: would be nice if Seedpod allowed you to paste text into the project name field. Also, would be nice if it saved your last Project Directory instead of defaulting to ~.
+
+
+
 
 
 

@@ -12,7 +12,6 @@
  
  **/
 
-
 class Box  :  public Thing
 { public:
   
@@ -20,10 +19,12 @@ class Box  :  public Thing
   float width = 10.0;
   Vect velocity = Vect(1.5, .75, 0);
   
+  // store feld dimenions and orientation
   SpaceFeld *f = Feld ();
+  Vect loc = f -> Loc ();
   Vect over = f -> Over ();
   Vect up = f -> Up ();
-  Vect loc = f -> Loc ();
+  Vect norm = f -> Norm ();
   float wid = f -> Width ();
   float hei = f -> Height ();
 
@@ -33,10 +34,8 @@ class Box  :  public Thing
   }
   
   void Travail ()
-  { // update position
-    IncTranslation( velocity );
-
-    // store feld dimenions and orientation
+  { // update position, translating velocity onto Feld size and orientation
+    IncTranslation (velocity . ProjectOnto (over) + velocity . ProjectOnto (up) + velocity . ProjectOnto (norm) );
     Vect v = Translation();
         
     // detect bounds
