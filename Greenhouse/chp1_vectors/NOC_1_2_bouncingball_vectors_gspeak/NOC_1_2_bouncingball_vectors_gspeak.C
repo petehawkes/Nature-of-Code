@@ -9,6 +9,9 @@
  
  Example 1-2: Bouncing Ball, with Vectors! Loc () and PhysLoc ()
  Set up for g-speak Felds in space instead of directly accessing x and y coordinates. 
+ - Translation uses ProjectOnto to account for Felds not perfectly aligned to the x and y axis
+ - Border detection using .Dot product instead of specific x and y values.
+
  
  **/
 
@@ -28,21 +31,20 @@ class Box  :  public Thing
   float wid = f -> Width ();
   float hei = f -> Height ();
 
-  
   Box ()  :  Thing ()
   { SlapOnFeld ();
   }
   
   void Travail ()
   { // update position, translating velocity onto Feld size and orientation
-    IncTranslation (velocity . ProjectOnto (over) + velocity . ProjectOnto (up) + velocity . ProjectOnto (norm));\
+    IncTranslation (MapToFeld(velocity));
         
     // detect bounds
     Vect v = Translation();
     if (v.Dot(over) > (loc + over * wid / 2.0).Dot(over) || v.Dot(over) < (loc - over * wid / 2.0).Dot(over))
-      velocity.x = velocity.x * -1;
+      velocity.x *= -1;
     if (v.Dot(up) > (loc + up * hei / 2.0).Dot(up) || v.Dot(up) < (loc - up * hei / 2.0).Dot(up))
-      velocity.y = velocity.y * -1;
+      velocity.y *= -1;
   }
   
   void DrawSelf ()
@@ -50,6 +52,11 @@ class Box  :  public Thing
     SetGLColor (Color (1, 1, 1));
     DrawQuad (Vect (-width/2, -width/2, 0), Vect (width, 0, 0), Vect (0, width, 0));
   }
+  
+  Vect MapToFeld (Vect v) {
+    return Vect(v . ProjectOnto (over) + v . ProjectOnto (up) + v . ProjectOnto (norm));
+  }
+  
 };
 
 

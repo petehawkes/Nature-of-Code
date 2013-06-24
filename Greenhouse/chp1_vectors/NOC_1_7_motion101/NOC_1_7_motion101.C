@@ -8,15 +8,19 @@
  A port to Greenhouse of examples from The Nature of Code by Daniel Shiffman
  
  Example 1-7: Motion 101
- This is the same as Example 1-2. We were already using objects. 
- 
+ This is essentially the same as Example 1-2 with some Greenhouse-specific modifications:
+    - using the Sketch class instead of Thing
+    - this provides handy drawing methods, like DrawEllipse ().
+    - DrawSelf () is removed.
+    - drawing happens instead in the constructor. 
+    
  **/
 
-class Box  :  public Thing
+class Mover  :  public Sketch
 { public:
   
   // initial positions and speeds reduced (compared to the Processing values)
-  float width = 10.0;
+  float width = 8.0;
   Vect velocity = Vect(1.5, .75, 0);
   
   // store feld dimenions and orientation
@@ -28,28 +32,33 @@ class Box  :  public Thing
   float wid = f -> Width ();
   float hei = f -> Height ();
   
-  
-  Box ()  :  Thing ()
+  Mover ()  :  Sketch ()
   { SlapOnFeld ();
+    SetStroked (false);
+    SetFillColor (Color (1, 1, 1));
+    DrawEllipse (Vect (0, 0, 0), width, width);
   }
   
   void Travail ()
   { // update position, translating velocity onto Feld size and orientation
-    IncTranslation (velocity . ProjectOnto (over) + velocity . ProjectOnto (up) + velocity . ProjectOnto (norm));\
+    IncTranslation (MapToFeld(velocity));
     
     // detect bounds
     Vect v = Translation();
-    if (v.Dot(over) > (loc + over * wid / 2.0).Dot(over) || v.Dot(over) < (loc - over * wid / 2.0).Dot(over))
-      velocity.x = velocity.x * -1;
-    if (v.Dot(up) > (loc + up * hei / 2.0).Dot(up) || v.Dot(up) < (loc - up * hei / 2.0).Dot(up))
-      velocity.y = velocity.y * -1;
+    if (v.Dot(over) > (loc + over * wid / 2.0).Dot(over))
+      IncTranslation (MapToFeld(Vect (-wid, 0, 0)));
+    if (v.Dot(over) < (loc - over * wid / 2.0).Dot(over))
+      IncTranslation (MapToFeld(Vect (wid, 0, 0)));
+    if (v.Dot(up) > (loc + up * hei / 2.0).Dot(up))
+      IncTranslation (MapToFeld(Vect (0, -hei, 0)));
+    if (v.Dot(up) < (loc - up * hei / 2.0).Dot(up))
+      IncTranslation (MapToFeld(Vect (0, hei, 0)));
   }
   
-  void DrawSelf ()
-  { // draw a box with a half-width offset, drawn from the center
-    SetGLColor (Color (1, 1, 1));
-    DrawQuad (Vect (-width/2, -width/2, 0), Vect (width, 0, 0), Vect (0, width, 0));
+  Vect MapToFeld (Vect v) {
+    return Vect(v . ProjectOnto (over) + v . ProjectOnto (up) + v . ProjectOnto (norm));
   }
+  
 };
 
 
@@ -57,5 +66,5 @@ void Setup ()
 { // color the background
   SetFeldsColor (Color ("#A8BBBA"));
   // add the box
-  new Box ();
+  new Mover ();
 }
