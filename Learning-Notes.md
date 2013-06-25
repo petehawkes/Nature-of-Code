@@ -53,7 +53,7 @@ NEW METHOD (this gets stuck on the edge of the bounds)
 
 	travail
 		IncTranslation ( velocity );
-		if (Loc().x > xmax) velocity.x *= -1;
+		if (Loc ().x > xmax) velocity.x *= -1;
 	drawself		
 		draw at (0,0,0)
 
@@ -96,9 +96,8 @@ NOC_1_7_motion101
 
 This took some time, primarily because I converted rewrote boundary detection so that it doesn't assume that the Feld is exactly perpendicular to the camera and aligned on the x and y axis. I understand the concept of using Feld -> Up () / Over () and Norm (), but the big breakthrough was learning about ProjectOnto. I created a convenience method that orients relative vectors to the Feld.
 
-  Vect MapToFeld (Vect v) {
-    return Vect(v . ProjectOnto (over) + v . ProjectOnto (up) + v . ProjectOnto (norm));
-  }
+  Vect MapToFeld (Vect v) 
+  { return Vect(v . ProjectOnto (over) + v . ProjectOnto (up) + v . ProjectOnto (norm)); }
 
 Also assumed that my Feld's initial Translation value was (0, 0, 0), but understand now that it's the same as Loc--positioned in space.
 
@@ -111,6 +110,25 @@ NOC_1_8_motion101_acceleration
 ===========================
 
 Can't find a Limit () method for vectors. Might be nice to add to Greenhosue, especially for velocity limits in particle systems.
+
+
+NOC_1_9_motion101_acceleration
+===========================
+
+Straightforward. Got schooled on ob-styling. Also wondered why I'm able to define custom class methods after I use them in Travail without errors. This works:
+
+	void Travail ()
+	  { IncTranslation (MapToFeld (velocity)); }
+	  
+	Vect MapToFeld (Vect v)
+	  { return Vect (v . ProjectOnto (over) + v . ProjectOnto (up) + v . ProjectOnto (norm)); }
+
+
+NOC_1_10_motion101_acceleration
+===========================
+
+It's confusing that Norm () is used for normalizing a vector since it has a completely different meaning in the context of Feld -> Norm ().
+
 
 
 

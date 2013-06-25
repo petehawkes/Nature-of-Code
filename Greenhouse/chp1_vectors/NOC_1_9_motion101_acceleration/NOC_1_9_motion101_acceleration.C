@@ -7,9 +7,9 @@
  
  A port to Greenhouse of examples from The Nature of Code by Daniel Shiffman
  
- Example 1-8: Motion 101 Acceleration
+ Example 1-9: Motion 101 Acceleration
  A "Mover" object stores velocity, and acceleration as vectors
- Apply an acceleration vector and limit the velocity
+ Apply a random acceleration vector and limit the velocity
  
  **/
 
@@ -31,8 +31,7 @@ class Mover  :  public Sketch
   Mover ()  :  Sketch ()
   { width = 8.0;
     velocity = Vect (0, 0, 0);
-    acceleration = Vect (-0.003, -0.01, 0);
-    top_speed = 10.0;
+    top_speed = 3.0;
     
     // store feld dimenions and orientation
     SpaceFeld *f = Feld ();
@@ -42,7 +41,7 @@ class Mover  :  public Sketch
     norm = f -> Norm ();
     wid = f -> Width ();
     hei = f -> Height ();
-  
+    
     SlapOnFeld ();
     
     // draw
@@ -52,7 +51,10 @@ class Mover  :  public Sketch
   }
   
   void Travail ()
-  { // add acceleration
+  { // create random acceleration vector
+    acceleration = Vect (Random (-1.0, 1.0), Random (-1.0, 1.0), 0);
+    acceleration.Scale (0.5);
+    // add acceleration
     velocity += acceleration;
     // limit the speed, see Limit method below
     velocity = Limit (velocity, top_speed);
@@ -76,9 +78,9 @@ class Mover  :  public Sketch
   
   Vect Limit (Vect v, float max)
   { if (v . Mag () > max)
-      return v *= max / v . Mag ();
-    else 
-      return v;
+    return v *= max / v . Mag ();
+  else
+    return v;
   }
   
 };
@@ -87,6 +89,8 @@ class Mover  :  public Sketch
 void Setup ()
 { // color the background
   SetFeldsColor (Color ("#A8BBBA"));
+  // generate a new random seed for unique results each time
+  SeedRandomizer ();
   // add the Mover
   new Mover ();
 }
