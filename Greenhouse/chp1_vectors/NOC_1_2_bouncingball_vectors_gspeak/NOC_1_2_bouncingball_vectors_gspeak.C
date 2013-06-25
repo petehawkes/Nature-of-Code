@@ -41,9 +41,9 @@ class Box  :  public Thing
         
     // detect bounds
     Vect v = Translation();
-    if (v.Dot(over) > (loc + over * wid / 2.0).Dot(over) || v.Dot(over) < (loc - over * wid / 2.0).Dot(over))
+    if (v . Dot(over) > (loc + over * wid / 2.0) . Dot(over) || v . Dot(over) < (loc - over * wid / 2.0) . Dot(over))
       velocity.x *= -1;
-    if (v.Dot(up) > (loc + up * hei / 2.0).Dot(up) || v.Dot(up) < (loc - up * hei / 2.0).Dot(up))
+    if (v . Dot(up) > (loc + up * hei / 2.0) . Dot(up) || v . Dot(up) < (loc - up * hei / 2.0) . Dot(up))
       velocity.y *= -1;
   }
   
