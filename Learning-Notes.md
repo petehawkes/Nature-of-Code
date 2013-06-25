@@ -73,6 +73,42 @@ Didn't get it immediately. Had to use INFORM to realize I'd forgotten to substra
 Note: would be nice if Seedpod allowed you to paste text into the project name field. Also, would be nice if it saved your last Project Directory instead of defaulting to ~.
 
 
+NOC_1_4_vector_multiplication
+===========================
+
+Straightforward.
+
+
+NOC_1_5_vector_magnitude
+===========================
+
+Also straightforward. Was reminded that when using DrawQuad, that it draws from the bottom left-corner, not the top-right that I'm familiar with.
+
+
+NOC_1_6_vector_normalize
+===========================
+
+Straightforward.
+
+
+NOC_1_7_motion101
+===========================
+
+This took some time, primarily because I converted rewrote boundary detection so that it doesn't assume that the Feld is exactly perpendicular to the camera and aligned on the x and y axis. I understand the concept of using Feld -> Up () / Over () and Norm (), but the big breakthrough was learning about ProjectOnto. I created a convenience method that orients relative vectors to the Feld.
+
+  Vect MapToFeld (Vect v) {
+    return Vect(v . ProjectOnto (over) + v . ProjectOnto (up) + v . ProjectOnto (norm));
+  }
+
+Also assumed that my Feld's initial Translation value was (0, 0, 0), but understand now that it's the same as Loc--positioned in space.
+
+Random () seemed broken until I realized that I needed to call SeedRandomizer (). Processing does this by default because it's such a common iterative need for artists and designers. 
+
+Started using the Sketch class so I could use DrawEllipse (). I had absolutely no idea that I needed to move my drawing methods into the constructor (or use them in Travail () in case of the need to Clear ()) and remove DrawSelf () entirely. DrawSelf overrides drawing structures defined in the constructor. It was counter-intuitive, but Nick explained the reason and it made sense. Just a new way of thinking about things.
+
+
+
+
 
 
 

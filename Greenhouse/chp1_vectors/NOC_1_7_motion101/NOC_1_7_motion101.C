@@ -37,8 +37,6 @@ class Mover  :  public Sketch
     SetStroked (false);
     SetFillColor (Color (1, 1, 1));
     DrawEllipse (Vect (0, 0, 0), width, width);
-    INFORM( ToStr (Translation()));
-    INFORM( ToStr (Random(-100, 100)) );
     // start at random position
     SetTranslationHard(Translation () + MapToFeld(Vect (Random(-wid/2, wid/2), Random(-hei/2, hei), 0)));
   }
