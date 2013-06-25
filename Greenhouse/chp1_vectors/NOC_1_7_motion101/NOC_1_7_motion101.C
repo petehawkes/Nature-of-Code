@@ -10,9 +10,8 @@
  Example 1-7: Motion 101
  This is essentially the same as Example 1-2 with some Greenhouse-specific modifications:
     - using the Sketch class instead of Thing
-    - this provides handy drawing methods, like DrawEllipse ().
-    - DrawSelf () is removed.
-    - drawing happens instead in the constructor. 
+    - this provides handy drawing methods, like DrawEllipse ()
+    - DrawSelf () is removed, drawing is defined in the constructor
     
  **/
 
@@ -20,7 +19,7 @@ class Mover  :  public Sketch
 { public:
   
   float width = 8.0;
-  // speeds randomized - SeedRandomizer () used in Setup () for unique results each time
+  // speeds randomized
   Vect velocity = Vect(Random(-2, 2), Random(-2, 2), 0);;
   
   // store feld dimenions and orientation
@@ -41,14 +40,12 @@ class Mover  :  public Sketch
     INFORM( ToStr (Translation()));
     INFORM( ToStr (Random(-100, 100)) );
     // start at random position
-    SetTranslationHard(Translation () + MapToFeld(Vect (Random(-wid/2, wid/2), Random(-hei/2, hei),0)));
-    
+    SetTranslationHard(Translation () + MapToFeld(Vect (Random(-wid/2, wid/2), Random(-hei/2, hei), 0)));
   }
   
   void Travail ()
   { // update position, translating velocity onto Feld size and orientation
     IncTranslation (MapToFeld(velocity));
-    //INFORM( ToStr (Translation()));
     
     // detect bounds
     Vect v = Translation();
@@ -72,7 +69,8 @@ class Mover  :  public Sketch
 void Setup ()
 { // color the background
   SetFeldsColor (Color ("#A8BBBA"));
+  // generate a new random seed for unique results each time
   SeedRandomizer ();
-  // add the box
+  // add the Mover
   new Mover ();
 }
