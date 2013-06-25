@@ -18,32 +18,43 @@
 class Box  :  public Thing
 { public:
   
-  // initial positions and speeds reduced (compared to the Processing values)
-  float width = 10.0;
-  Vect velocity = Vect(1.5, .75, 0);
+  float width;
+  Vect velocity;
   
-  // store feld dimenions and orientation
-  SpaceFeld *f = Feld ();
-  Vect loc = f -> Loc ();
-  Vect over = f -> Over ();
-  Vect up = f -> Up ();
-  Vect norm = f -> Norm ();
-  float wid = f -> Width ();
-  float hei = f -> Height ();
+  Vect loc;
+  Vect over;
+  Vect up;
+  Vect norm;
+  float wid;
+  float hei;
 
   Box ()  :  Thing ()
-  { SlapOnFeld ();
+  { // initial positions and speeds reduced (compared to the Processing values)
+    width = 10.0;
+    velocity = Vect(1.5, .75, 0);
+    
+    // store feld dimenions and orientation
+    SpaceFeld *f = Feld ();
+    loc = f -> Loc ();
+    over = f -> Over ();
+    up = f -> Up ();
+    norm = f -> Norm ();
+    wid = f -> Width ();
+    hei = f -> Height ();
+    
+    SlapOnFeld ();
   }
+
   
   void Travail ()
   { // update position, translating velocity onto Feld size and orientation
-    IncTranslation (MapToFeld(velocity));
+    IncTranslation (MapToFeld (velocity));
         
     // detect bounds
     Vect v = Translation();
-    if (v . Dot(over) > (loc + over * wid / 2.0) . Dot(over) || v . Dot(over) < (loc - over * wid / 2.0) . Dot(over))
+    if (v . Dot (over) > (loc + over * wid / 2.0) . Dot (over) || v . Dot (over) < (loc - over * wid / 2.0) . Dot (over))
       velocity.x *= -1;
-    if (v . Dot(up) > (loc + up * hei / 2.0) . Dot(up) || v . Dot(up) < (loc - up * hei / 2.0) . Dot(up))
+    if (v . Dot (up) > (loc + up * hei / 2.0) . Dot (up) || v . Dot (up) < (loc - up * hei / 2.0) . Dot (up))
       velocity.y *= -1;
   }
   
@@ -53,9 +64,8 @@ class Box  :  public Thing
     DrawQuad (Vect (-width/2, -width/2, 0), Vect (width, 0, 0), Vect (0, width, 0));
   }
   
-  Vect MapToFeld (Vect v) {
-    return Vect(v . ProjectOnto (over) + v . ProjectOnto (up) + v . ProjectOnto (norm));
-  }
+  Vect MapToFeld (Vect v)
+  { return Vect(v . ProjectOnto (over) + v . ProjectOnto (up) + v . ProjectOnto (norm)); }
   
 };
 

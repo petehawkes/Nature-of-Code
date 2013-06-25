@@ -7,12 +7,9 @@
  
  A port to Greenhouse of examples from The Nature of Code by Daniel Shiffman
  
- Example 1-7: Motion 101
- This is essentially the same as Example 1-2 with some Greenhouse-specific modifications:
-    - using the Sketch class instead of Thing
-    - this provides handy drawing methods, like DrawEllipse ()
-    - DrawSelf () is removed, drawing is defined in the constructor
-    
+ Example 1-8: Motion 101 Acceleration
+ Apply an acceleration vector and limit the velocity
+ 
  **/
 
 class Mover  :  public Sketch
@@ -20,6 +17,8 @@ class Mover  :  public Sketch
   
   float width;
   Vect velocity;
+  Vect acceleration;
+  float top_speed;
   
   Vect loc;
   Vect over;
@@ -30,8 +29,9 @@ class Mover  :  public Sketch
   
   Mover ()  :  Sketch ()
   { width = 8.0;
-    // speeds randomized
-    velocity = Vect (Random (-2, 2), Random (-2, 2), 0);
+    velocity = Vect (0, 0, 0);
+    acceleration = Vect (-0.003, -0.01, 0);
+    top_speed = 10.0;
     
     // store feld dimenions and orientation
     SpaceFeld *f = Feld ();
@@ -41,20 +41,22 @@ class Mover  :  public Sketch
     norm = f -> Norm ();
     wid = f -> Width ();
     hei = f -> Height ();
-    
+  
     SlapOnFeld ();
     
     // draw
     SetStroked (false);
     SetFillColor (Color (1, 1, 1));
     DrawEllipse (Vect (0, 0, 0), width, width);
-    // start at random position
-    SetTranslationHard (Translation () + MapToFeld(Vect (Random (-wid/2, wid/2), Random (-hei/2, hei), 0)));
   }
   
   void Travail ()
-  { // update position, translating velocity onto Feld size and orientation
-    IncTranslation (MapToFeld(velocity));
+  { // add acceleration
+    velocity += acceleration;
+    // limit the speed, see Limit method below
+    velocity = Limit (velocity, top_speed);
+    // update position, translating velocity onto Feld size and orientation
+    IncTranslation (MapToFeld (velocity));
     
     // detect bounds
     Vect v = Translation ();
@@ -69,7 +71,14 @@ class Mover  :  public Sketch
   }
   
   Vect MapToFeld (Vect v)
-  { return Vect(v . ProjectOnto (over) + v . ProjectOnto (up) + v . ProjectOnto (norm)); }
+  { return Vect (v . ProjectOnto (over) + v . ProjectOnto (up) + v . ProjectOnto (norm)); }
+  
+  Vect Limit (Vect v, float max)
+  { if (v . Mag () > max)
+      return v *= max / v . Mag ();
+    else 
+      return v;
+  }
   
 };
 
@@ -77,8 +86,6 @@ class Mover  :  public Sketch
 void Setup ()
 { // color the background
   SetFeldsColor (Color ("#A8BBBA"));
-  // generate a new random seed for unique results each time
-  SeedRandomizer ();
   // add the Mover
   new Mover ();
 }

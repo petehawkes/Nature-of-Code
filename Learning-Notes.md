@@ -107,7 +107,10 @@ Random () seemed broken until I realized that I needed to call SeedRandomizer ()
 Started using the Sketch class so I could use DrawEllipse (). I had absolutely no idea that I needed to move my drawing methods into the constructor (or use them in Travail () in case of the need to Clear ()) and remove DrawSelf () entirely. DrawSelf overrides drawing structures defined in the constructor. It was counter-intuitive, but Nick explained the reason and it made sense. Just a new way of thinking about things.
 
 
+NOC_1_8_motion101_acceleration
+===========================
 
+Can't find a Limit () method for vectors. Might be nice to add to Greenhosue, especially for velocity limits in particle systems.
 
 
 
