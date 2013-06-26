@@ -129,6 +129,8 @@ NOC_1_10_motion101_acceleration
 
 It's confusing that Norm () is used for normalizing a vector since it has a completely different meaning in the context of Feld -> Norm ().
 
+Also, looked for sine and cosine but found only PI under Math in the reference (can't browse the full reference). Discovered through trial and error that sin () and cos () are available.
+
 
 
 
