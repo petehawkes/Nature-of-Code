@@ -12,7 +12,7 @@ Initial setup.
 - I see Setup(), but needed to understand that travail (update) and other events happen within objects, so I need to define a class for everything.
 
 Looking for something like width and height to know my window size and don't immediately understand how to change the feld size. 
-- Feld size is defined in a .protein. Immediate concerns about all my files sharing a single size condifuration in /etc/oblong/feld.protein
+- Feld size is defined in a .protein. Immediate concerns about all my files sharing a single size condifuration in /etc/oblong/feld.protein. 
 - Feld () -> Width () is useful
 - Feld () -> PhysLoc() needed for objects to know where they are relative to the space they're in
 
@@ -94,7 +94,7 @@ Straightforward.
 NOC_1_7_motion101
 ===========================
 
-This took some time, primarily because I converted rewrote boundary detection so that it doesn't assume that the Feld is exactly perpendicular to the camera and aligned on the x and y axis. I understand the concept of using Feld -> Up () / Over () and Norm (), but the big breakthrough was learning about ProjectOnto. I created a convenience method that orients relative vectors to the Feld.
+This took some time, primarily because I rewrote boundary detection so that it doesn't assume that the Feld is exactly perpendicular to the camera and aligned on the x and y axis. I understand the concept of using Feld -> Up () / Over () and Norm (), but the big breakthrough was learning about ProjectOnto. I created a convenience method that orients relative vectors to the Feld.
 
   Vect MapToFeld (Vect v) 
   { return Vect(v . ProjectOnto (over) + v . ProjectOnto (up) + v . ProjectOnto (norm)); }
@@ -109,13 +109,13 @@ Started using the Sketch class so I could use DrawEllipse (). I had absolutely n
 NOC_1_8_motion101_acceleration
 ===========================
 
-Can't find a Limit () method for vectors. Might be nice to add to Greenhosue, especially for velocity limits in particle systems.
+Can't find a Limit () method for vectors. Might be nice to add to Greenhouse, especially for velocity limits in particle systems.
 
 
 NOC_1_9_motion101_acceleration
 ===========================
 
-Straightforward. Got schooled on ob-styling. Also wondered why I'm able to define custom class methods after I use them in Travail without errors. This works:
+Straightforward. Got schooled on ob-styling. Also wondered why I'm able to define custom class methods after I use them in Travail without errors. This works, in this order:
 
 	void Travail ()
 	  { IncTranslation (MapToFeld (velocity)); }
@@ -129,7 +129,7 @@ NOC_1_10_motion101_acceleration
 
 It's confusing that Norm () is used for normalizing a vector since it has a completely different meaning in the context of Feld -> Norm ().
 
-Also, looked for sine and cosine but found only PI under Math in the reference (can't browse the full reference). Discovered through trial and error that sin () and cos () are available.
+Also, again looked for sine and cosine but found only PI under Math in the reference (can't browse the full reference). Discovered through trial and error that sin () and cos () are available.
 
 
 
